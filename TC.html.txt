@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Gallery</title>
+    <style>
+        .cat-img { width: 200px; height: 200px; object-fit: cover; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Random Cat Gallery</h1>
+    <select id="breedSelect"></select>
+    <button id="loadMore">Load More</button>
+    <div id="catGallery"></div>
+    <script src="catGallery.js"></script>
+</body>
+</html>

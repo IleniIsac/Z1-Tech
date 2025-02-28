@@ -1,0 +1,46 @@
+const API_KEY = "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";
+const API_URL = "https://api.thecatapi.com/v1/images/search";
+const BREEDS_URL = "https://api.thecatapi.com/v1/breeds";
+
+document.addEventListener("DOMContentLoaded", () => {
+    fetchBreeds();
+    fetchCats();
+
+    document.getElementById("loadMore").addEventListener("click", fetchCats);
+    document.getElementById("breedSelect").addEventListener("change", fetchCats);
+});
+
+async function fetchBreeds() {
+    try {
+        const response = await fetch(${BREEDS_URL}?api_key=${API_KEY});
+        const breeds = await response.json();
+        const select = document.getElementById("breedSelect");
+        
+        select.innerHTML = '<option value="">All Breeds</option>';
+        breeds.forEach(breed => {
+            select.innerHTML += <option value="${breed.id}">${breed.name}</option>;
+        });
+    } catch (error) {
+        console.error("Error fetching breeds:", error);
+    }
+}
+
+async function fetchCats() {
+    try {
+        const breed = document.getElementById("breedSelect").value;
+        const breedQuery = breed ? &breed_ids=${breed} : "";
+        const response = await fetch(${API_URL}?limit=9${breedQuery}&api_key=${API_KEY});
+        const cats = await response.json();
+        const gallery = document.getElementById("catGallery");
+        
+        gallery.innerHTML = "";
+        cats.forEach(cat => {
+            const img = document.createElement("img");
+            img.src = cat.url;
+            img.className = "cat-img";
+            gallery.appendChild(img);
+        });
+    } catch (error) {
+        console.error("Error fetching cats:", error);
+    }
+}
